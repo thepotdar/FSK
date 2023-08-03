@@ -1,0 +1,19 @@
+Code 3 : Demodulation of FSK signal
+
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.signal as signal
+from scipy.fftpack import fft, rfft, rfftfreq, irfft
+import scipy.signal.signaltools as sigtool
+
+from scipy.io import wavfile
+fs, data = wavfile.read('jx3p.wav')
+
+h = signal.firwin(numtaps = 300, cutoff = 900, fs=fs)
+data = signal.lfilter(h, 1, data)
+
+data = np.abs(sigtool.hilbert(data))
+
+import matplotlib.pyplot as plt
+plt.plot(data)
+plt.show()
